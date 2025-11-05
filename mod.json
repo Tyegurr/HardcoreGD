@@ -1,0 +1,23 @@
+{
+	"geode": "4.5.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "tyegurr.hardcore",
+	"name": "Hardcore",
+	"version": "v1.0.0",
+	"developer": "Tyegurr",
+	"description": "Geometry Dash but really hardcore.",
+	"tags": ["gameplay", "offline"],
+	"links": {
+		"source": "https://github.com/Tyegurr/HardcoreGD"
+	},
+	"resources": {
+		"spritesheets": {
+			"res": ["res/*.png"]
+		}
+	}
+}
