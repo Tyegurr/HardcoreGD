@@ -55,13 +55,13 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
         if (lockoutCheck != -1) {
             auto playMenu = this->getChildByID("play-menu");
             if (playMenu) {
-                auto castedPlayMenu = dynamic_cast<CCMenu*>(playMenu);
+                auto castedPlayMenu = static_cast<CCMenu*>(playMenu);
                 castedPlayMenu->setOpacity(80);
             }
         } else {
             auto playMenu = this->getChildByID("play-menu");
             if (playMenu) {
-                auto castedPlayMenu = dynamic_cast<CCMenu*>(playMenu);
+                auto castedPlayMenu = static_cast<CCMenu*>(playMenu);
                 castedPlayMenu->setOpacity(255);
             }
         }
@@ -72,9 +72,7 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
             int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
             if (lockoutCheck != -1)
             {
-                std::ostringstream alertPopupContent;
-                alertPopupContent << "You're locked out of this level for the next " << lockoutCheck << " seconds!";
-                FLAlertLayer::create("Uh oh!", alertPopupContent.str(), "Okay...")->show();
+                FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for the next {} seconds!", lockoutCheck), "Okay...")->show();
                 return;
             }
             m_fields->m_inDifficultyPrompt = true;

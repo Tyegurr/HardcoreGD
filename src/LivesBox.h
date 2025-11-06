@@ -12,4 +12,6 @@ protected:
 public:
     static LivesBox* create(int numberOfLivesToReference);
     std::vector<LifeSprite*> LifeSprites;
+
+    void update(float delta) override;
 };
