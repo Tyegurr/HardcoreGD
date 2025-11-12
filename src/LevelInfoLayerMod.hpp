@@ -23,7 +23,7 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
         if (lockoutCheck != -1) {
             auto playMenu = this->getChildByID("play-menu");
             if (playMenu) {
-                auto castedPlayMenu = dynamic_cast<CCMenu*>(playMenu);
+                auto castedPlayMenu = static_cast<CCMenu*>(playMenu);
                 castedPlayMenu->setOpacity(80);
             }
         }

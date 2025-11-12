@@ -8,9 +8,12 @@
 	},
 	"id": "tyegurr.hardcore",
 	"name": "Hardcore",
-	"version": "v1.0.3",
+	"version": "v1.0.4",
 	"developer": "Tyegurr",
 	"description": "Geometry Dash but really hardcore.",
+	"dependencies": {
+		"geode.node-ids": ">=v1.20.0"
+	},
 	"tags": ["gameplay", "offline"],
 	"links": {
 		"source": "https://github.com/Tyegurr/HardcoreGD"

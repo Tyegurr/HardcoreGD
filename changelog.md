@@ -1,3 +1,6 @@
+# V1.0.4
+Added NodeIDs dependency
+
 # V1.0.3
 Fixed a memory leak casued by the difficulty prompt itself
 
