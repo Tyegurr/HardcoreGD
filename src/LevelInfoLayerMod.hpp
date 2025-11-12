@@ -6,26 +6,6 @@
 
 using namespace geode::prelude;
 
-class DifficultySelectionAlertLayerProtocol : public FLAlertLayerProtocol {
-private:
-    CCObject* _sender;
-    LevelInfoLayer* _layer;
-public:
-    DifficultySelectionAlertLayerProtocol(CCObject* sender, LevelInfoLayer* layer) : FLAlertLayerProtocol() {
-        _sender = sender;
-        _layer = layer;
-    }
-    void FLAlert_Clicked(FLAlertLayer* p0, bool p1) override {
-        log::info("yoo {}", p1);
-        if (p1 == false) {
-            HardcoreModeManager::getInstance()->IsInHardcoreMode = false;
-            _layer->onPlay(_sender);
-        } else {
-            HardcoreModeManager::getInstance()->IsInHardcoreMode = true;
-            _layer->onPlay(_sender);
-        }
-    }
-};
 
 class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
     struct Fields {
@@ -36,6 +16,8 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
     bool init(GJGameLevel* level, bool challenge) {
         if (!LevelInfoLayer::init(level, challenge)) return false;
         m_fields->m_currentLevel = level;
+
+        HardcoreModeManager::getInstance()->currentLevelInfoLayer = this;
 
         int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
         if (lockoutCheck != -1) {
@@ -68,20 +50,27 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
     }
 
     void onPlay(CCObject* sender) {
+        HardcoreModeManager::getInstance()->currentOnPlaySender = sender;
         if (m_fields->m_inDifficultyPrompt == false) {
             int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
             if (lockoutCheck != -1)
             {
-                FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for the next {} seconds!", lockoutCheck), "Okay...")->show();
+                FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for thenext {} seconds!", lockoutCheck), "Okay...")->show();
                 return;
             }
+            //FLAlertLayer* DifficultySelectionAlert = FLAlertLayer::create(newDifficultySelectionAlertLayerProtocol(sender, this), "GET READY", "CHOOSE YOURDIFFICULTY", "Normal", "HARDCORE"); // this    causes a memory leak for the love of god don't use it
+            geode::createQuickPopup(
+                "GET READY",
+                "CHOOSE YOUR DIFFICULTY",
+                "Normal", "HARDCORE",
+                [](auto, bool btn2) {
+                    HardcoreModeManager::getInstance()->IsInHardcoreMode = btn2;
+                    HardcoreModeManager::getInstance()->currentLevelInfoLayer->onPlay(HardcoreModeManager::getInstance()->currentOnPlaySender);
+                }
+            );
             m_fields->m_inDifficultyPrompt = true;
-            FLAlertLayer* DifficultySelectionAlert = FLAlertLayer::create(new DifficultySelectionAlertLayerProtocol(sender, this), "GET READY", "CHOOSE YOUR DIFFICULTY", "Normal", "HARDCORE");
-            DifficultySelectionAlert->show();
         } else {
             LevelInfoLayer::onPlay(sender);
         }
-
-        //LevelInfoLayer::onPlay(sender);
     }
 };
