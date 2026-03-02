@@ -1,3 +1,9 @@
+# V1.0.5
+What's new:
+- Added 2.2081 support
+- Prevents copying the level if locked out
+- Fixed a grammatical error (changed "thenext" to "the next" in the popup for being locked out)
+
 # V1.0.4
 Added NodeIDs dependency
 
