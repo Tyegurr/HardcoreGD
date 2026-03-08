@@ -1,3 +1,7 @@
+# V1.0.6
+What's new:
+- Fixed a bug that would prompt the user to select a difficulty and play the level when trying to copy a level.
+
 # V1.0.5
 What's new:
 - Added 2.2081 support

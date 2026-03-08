@@ -81,26 +81,13 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
 
     void tryCloneLevel(CCObject* sender) {
         HardcoreModeManager::getInstance()->currentOnPlaySender = sender;
-        if (m_fields->m_inDifficultyPrompt == false) {
-            int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
-            if (lockoutCheck != -1)
-            {
-                FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for the next {} seconds!", lockoutCheck), "Okay...")->show();
-                return;
-            }
-            geode::createQuickPopup(
-                "GET READY",
-                "CHOOSE YOUR DIFFICULTY",
-                "Normal", "HARDCORE",
-                [](auto, bool btn2) {
-                    HardcoreModeManager::getInstance()->IsInHardcoreMode = btn2;
-                    HardcoreModeManager::getInstance()->currentLevelInfoLayer->onPlay(HardcoreModeManager::getInstance()->currentOnPlaySender);
-                }
-            );
-            m_fields->m_inDifficultyPrompt = true;
-        } else {
-            LevelInfoLayer::tryCloneLevel(sender);
+        int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
+        if (lockoutCheck != -1)
+        {
+            FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for the next {} seconds!", lockoutCheck), "Okay...")->show();
+            return;
         }
+        LevelInfoLayer::tryCloneLevel(sender);
     }
 
     void onPlay(CCObject* sender) {
