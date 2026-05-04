@@ -1,3 +1,7 @@
+# V1.1.1
+What's new:
+- Fixed a bug where having "Always Hardcore" enabled would bypass the lock popup.
+
 # V1.1.0
 What's new:
 - Added customization features (credits to YoshiBigBum for the ideas)

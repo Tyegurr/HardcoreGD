@@ -115,6 +115,13 @@ class $modify(HardcoreLevelInfoLayer, LevelInfoLayer) {
                 LevelInfoLayer::onPlay(sender);
             }
         } else {
+            int lockoutCheck = HardcoreModeManager::getInstance()->checkIfLockedOutOfLevelId(m_fields->m_currentLevel->m_levelID.value());
+            if (lockoutCheck != -1)
+            {
+                FLAlertLayer::create("Uh oh!", fmt::format("You're locked out of this level for the next {} seconds!", lockoutCheck), "Okay...")->show();
+                return;
+            }
+
             HardcoreModeManager::getInstance()->IsInHardcoreMode = true;
             LevelInfoLayer::onPlay(sender);
         }
