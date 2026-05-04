@@ -5,12 +5,12 @@ bool LivesBox::init(int numberOfLivesToReference) {
 
     this->setPositionY(20);
     this->setAnchorPoint({ 0.5, 0.0 });
-    this->setContentSize({ 135, 0 });
+    this->setContentSize({ numberOfLivesToReference * 45.f, 0 });
     this->scheduleUpdate();
 
     for (int i = 0; i < numberOfLivesToReference; i++) {
         LifeSprite* lifeSprite = LifeSprite::create();
-        lifeSprite->setPositionX(i*45);
+        lifeSprite->setPositionX((i*45) + 22.5f); // So.. hard.. coded..
         this->addChild(lifeSprite);
         LifeSprites.push_back(lifeSprite);
     }

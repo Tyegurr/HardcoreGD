@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.1",
+	"geode": "5.6.1",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "tyegurr.hardcore",
 	"name": "Hardcore",
-	"version": "v1.0.6",
+	"version": "v1.1.0",
 	"developer": "Tyegurr",
 	"description": "Geometry Dash but really hardcore.",
 	"dependencies": {
@@ -21,6 +21,29 @@
 	"resources": {
 		"spritesheets": {
 			"res": ["res/*.png"]
+		}
+	},
+	"settings": {
+		"lock-time": {
+			"name": "Lock Time",
+			"type": "int",
+			"default": 15,
+			"min": 1,
+			"description": "How long you're locked out of a level."
+		},
+		"lives": {
+			"name": "Lives",
+			"type": "int",
+			"min": 1,
+			"max": 16,
+			"default": 4,
+			"description": "You must like reading."
+		},
+		"always-hardcore": {
+			"name": "Always Hardcore",
+			"type": "bool",
+			"default": false,
+			"description": "Disable the annoying difficulty prompt and assume hardcore always."
 		}
 	}
 }

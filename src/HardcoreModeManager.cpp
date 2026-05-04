@@ -15,7 +15,7 @@ HardcoreModeManager* HardcoreModeManager::getInstance() {
 }
 
 void HardcoreModeManager::PostPlayLayerInit(PlayLayer* layer) {
-    CurrentLives = 4;
+    CurrentLives = Mod::get()->getSettingValue<int>("lives");
     
     if (IsInHardcoreMode)
     {
@@ -54,7 +54,7 @@ int HardcoreModeManager::checkIfLockedOutOfLevelId(int levelId) {
     auto result = Mod::get()->getSavedValue<int>(fmt::format("{}_gdhlf", levelId));
 
     if (result) {
-        int lockoutTime = result + 900;
+        int lockoutTime = result + (Mod::get()->getSettingValue<int>("lock-time") * 60);
 
         std::time_t currentTime = time(0);
         int diff = lockoutTime - currentTime;

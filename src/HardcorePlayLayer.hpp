@@ -22,13 +22,13 @@ class $modify(HardcorePlayLayer, PlayLayer) {
 
     void levelComplete() {
         PlayLayer::levelComplete();
-        HardcoreModeManager::getInstance()->CurrentLives = 4;
+        HardcoreModeManager::getInstance()->CurrentLives = Mod::get()->getSettingValue<int>("lives");
     }
 
     void resetLevel() {
         PlayLayer::resetLevel();
         if (HardcoreModeManager::getInstance()->notFirstLevelReset == false) {
-            HardcoreModeManager::getInstance()->CurrentLives = 4;
+            HardcoreModeManager::getInstance()->CurrentLives = Mod::get()->getSettingValue<int>("lives");
             HardcoreModeManager::getInstance()->AfterPlayLayerResettedLevel();
             HardcoreModeManager::getInstance()->notFirstLevelReset = true;
         } else {

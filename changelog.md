@@ -1,3 +1,7 @@
+# V1.1.0
+What's new:
+- Added customization features (credits to YoshiBigBum for the ideas)
+
 # V1.0.6
 What's new:
 - Fixed a bug that would prompt the user to select a difficulty and play the level when trying to copy a level.
